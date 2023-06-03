@@ -1,4 +1,4 @@
-const API_PATH = '/api';
+const API_PATH = "/api/1.0";
 export const CAMPAIGNS_API = `${API_PATH}/marketing/campaigns`;
 export const PRODUCTS_API = `${API_PATH}/products`;
 export const PRODUCT_API = `${API_PATH}/products/details`;

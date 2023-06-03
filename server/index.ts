@@ -5,11 +5,13 @@ import userRouter from "./routes/user.js";
 import campaignRouter from "./routes/campaign.js";
 import orderRouter from "./routes/order.js";
 import reportRouter from "./routes/report.js";
+import chatRouter from "./routes/chatMessage.js";
 import branch from "./middleware/branch.js";
 import authenticate from "./middleware/authenticate.js";
 import authorization from "./middleware/authorization.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import { errorHandler } from "./utils/errorHandler.js";
+import chatBoxTestRouter from "./routes/chatBoxTest.js";
 
 const app = express();
 const port = 3000;
@@ -32,6 +34,8 @@ app.use("/api/1.0", rateLimiter, [
   campaignRouter,
   orderRouter,
   reportRouter,
+  chatRouter,
+  chatBoxTestRouter,
 ]);
 
 app.use(

@@ -1022,3 +1022,145 @@ or
 | Field |  Type  | Description    |
 | :---: | :----: | :------------- |
 | error | String | Error message. |
+
+---
+
+### Chat Room Histories API
+
+- **End Point:** `/chatroom/history`
+
+- **Method:** `GET`
+
+- **Request Headers:**
+
+|     Field     |  Type  |                                    Description                                    |
+| :-----------: | :----: | :-------------------------------------------------------------------------------: |
+| Content-Type  | String |                          Only accept `application/json`.                          |
+| Authorization | String | Access token preceding `Bearer `. For example: `Bearer x48aDD534da8ADSD1XC4SD5S`. |
+
+- **Request Body**
+
+  |  Field  | Type |                          Description                           |
+  | :-----: | :--: | :------------------------------------------------------------: |
+  | user_id | Int  | If Header token belongs to admin, requires an user_id in body. |
+
+- **Request Example:**
+  `https://[HOST_NAME]/api/[API_VERSION]/chatroom/history`
+
+- **Success Response: 200**
+
+| Field |             Type             | Description                     |
+| :---: | :--------------------------: | :------------------------------ |
+| data  | `Chat Room Histories Object` | Chat Room Histories Information |
+
+- **Success Response Example:**
+
+```
+{
+  "data": [
+    {
+      "message": "Hello!",
+      "sender_id": 13,
+      "time_stamp": "2023-05-31 22:09:59",
+      "chat_room_id": 13
+    },
+    {
+      "message": "Hi!",
+      "sender_id": 0,
+      "time_stamp": "2023-05-31 22:10:30",
+      "chat_room_id": 13
+    },
+    {
+      "message": "What can I help you?",
+      "sender_id": 0,
+      "time_stamp": "2023-05-31 22:10:31",
+      "chat_room_id": 13
+    }
+  ]
+}
+```
+
+- **Client Error (No token) Response: 401**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |
+
+- **Client Error (Wrong token) Response: 403**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |
+
+- **Server Error Response: 500**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |
+
+---
+
+### Admin Chat Rooms API
+
+- **End Point:** `/admin/chat_rooms`
+
+- **Method:** `GET`
+
+- **Request Headers:**
+
+|     Field     |  Type  |                                    Description                                    |
+| :-----------: | :----: | :-------------------------------------------------------------------------------: |
+| Content-Type  | String |                          Only accept `application/json`.                          |
+| Authorization | String | Access token preceding `Bearer `. For example: `Bearer x48aDD534da8ADSD1XC4SD5S`. |
+
+- **Request Example:**
+  `https://[HOST_NAME]/api/[API_VERSION]/admin/chat_rooms`
+
+- **Success Response: 200**
+
+| Field |        Type         | Description       |
+| :---: | :-----------------: | :---------------- |
+| data  | `Chat Rooms Object` | Latest Chat Rooms |
+
+- **Success Response Example:**
+
+```
+{
+  "data": [
+    {
+      "message": "Hello!",
+      "sender_id": 13,
+      "time_stamp": "2023-05-31 22:09:59",
+      "chat_room_id": 13,
+      "user_name": "Janet",
+      "user_picture": "https://cdn-icons-png.flaticon.com/128/616/616430.png"
+    },
+    {
+      "message": "Check opening time",
+      "sender_id": 11,
+      "time_stamp": "2023-06-02 23:09:59",
+      "chat_room_id": 11,
+      "user_name": "Vicky",
+      "user_picture": "https://cdn-icons-png.flaticon.com/128/2171/2171991.png"
+    }
+  ]
+}
+```
+
+- **Client Error (No token) Response: 401**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |
+
+- **Client Error (Wrong token) Response: 403**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |
+
+- **Server Error Response: 500**
+
+| Field |  Type  | Description    |
+| :---: | :----: | :------------- |
+| error | String | Error message. |

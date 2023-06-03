@@ -5,7 +5,7 @@ import userRouter from "./routes/user.js";
 import campaignRouter from "./routes/campaign.js";
 import orderRouter from "./routes/order.js";
 import reportRouter from "./routes/report.js";
-import chatRouter from "./routes/chatMessage.js"
+import chatRouter from "./routes/chatMessage.js";
 import branch from "./middleware/branch.js";
 import authenticate from "./middleware/authenticate.js";
 import authorization from "./middleware/authorization.js";
@@ -28,8 +28,6 @@ router.use(function (req, res, next) {
 
 app.use(express.json());
 
-
-
 app.use("/api/1.0", rateLimiter, [
   productRouter,
   userRouter,
@@ -37,7 +35,7 @@ app.use("/api/1.0", rateLimiter, [
   orderRouter,
   reportRouter,
   chatRouter,
-  chatBoxTestRouter
+  chatBoxTestRouter,
 ]);
 
 app.use(
@@ -51,11 +49,8 @@ app.use(
 app.use("/uploads", express.static("./uploads"));
 app.use("/assets", express.static("./assets"));
 
-app.get("/")
-
 app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`STYLiSH listening on port ${port}`);
 });
- 

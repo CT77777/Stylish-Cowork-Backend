@@ -26,7 +26,7 @@ router.use(function (req, res, next) {
 
 app.use(express.json());
 
-app.use("/api", rateLimiter, [
+app.use("/api/1.0", rateLimiter, [
   productRouter,
   userRouter,
   campaignRouter,

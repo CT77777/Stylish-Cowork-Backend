@@ -11,6 +11,7 @@ import authenticate from "./middleware/authenticate.js";
 import authorization from "./middleware/authorization.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import { errorHandler } from "./utils/errorHandler.js";
+import chatBoxTestRouter from "./routes/chatBoxTest.js";
 
 const app = express();
 const port = 3000;
@@ -27,17 +28,16 @@ router.use(function (req, res, next) {
 
 app.use(express.json());
 
-app.get('/chatroom/history', (req,res)=>{  
-   res.send('hihi');
- })
 
-app.use("/api", rateLimiter, [
+
+app.use("/api/1.0", rateLimiter, [
   productRouter,
   userRouter,
   campaignRouter,
   orderRouter,
   reportRouter,
-  chatRouter
+  chatRouter,
+  chatBoxTestRouter
 ]);
 
 app.use(

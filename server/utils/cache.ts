@@ -1,8 +1,10 @@
 import { Redis } from "ioredis";
 
+const portNumber: number = parseInt(process.env.REDIS_PORT || "0");
+
 export const cache = new Redis({
-  // port: process.env.REDIS_PORT, // Redis port
-  // host: process.env.REDIS_HOST,
+  port: portNumber, // Redis port
+  host: process.env.REDIS_HOST,
   // username: process.env.REDIS_USER,
   // password: process.env.REDIS_PASSWORD,
   commandTimeout: 300,

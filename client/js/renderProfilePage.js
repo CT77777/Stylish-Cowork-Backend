@@ -34,7 +34,7 @@ function AuthForm({ onSubmitSuccess }) {
     try {
       event.preventDefault();
       const formData = new FormData(event.target);
-      const response = await fetch(`/api/user/signup`, {
+      const response = await fetch(`/api/1.0/user/signup`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function AuthForm({ onSubmitSuccess }) {
     try {
       event.preventDefault();
       const formData = new FormData(event.target);
-      const response = await fetch(`/api/user/signin`, {
+      const response = await fetch(`/api/1.0/user/signin`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ function AuthForm({ onSubmitSuccess }) {
   const fbLogin = async () => {
     try {
       const accessToken = await getFbToken();
-      const response = await fetch(`/api/user/signin`, {
+      const response = await fetch(`/api/1.0/user/signin`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ function ProfilePage() {
   React.useEffect(() => {
     const jwtToken = window.localStorage.getItem("jwtToken");
     if (jwtToken) {
-      fetch(`/api/user/profile`, {
+      fetch(`/api/1.0/user/profile`, {
         headers: new Headers({
           "Content-Type": "application/json",
           Authorization: `Bearer ${jwtToken}`,

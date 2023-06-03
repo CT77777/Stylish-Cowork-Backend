@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 });
 
 export const cache = new Redis({
-  // port: process.env.REDIS_PORT, // Redis port
+  port: process.env.REDIS_PORT, // Redis port
   // host: process.env.REDIS_HOST,
   // username: process.env.REDIS_USER,
   // password: process.env.REDIS_PASSWORD,

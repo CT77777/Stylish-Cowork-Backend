@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Socket.IO chat</title>
+    <title>User_Socket.IO chat</title>
     <style>
         body {
             margin: 0;
@@ -55,9 +55,9 @@
             padding: 0.5rem 1rem;
         }
 
-        #messages>li:nth-child(odd) {
+        /* #messages>li:nth-child(odd) {
             background: #efefef;
-        }
+        } */
     </style>
 </head>
 
@@ -68,23 +68,34 @@
     </form>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const socket = io("ws://ctceth.com:8080");
+        const socket = io("wss://localhost:8080"); // need to be revised to ctceth.com before pushing to ec2
 
+        const messages = document.getElementById('messages');
         const form = document.getElementById('form');
         const input = document.getElementById('input');
+
+        socket.emit("join room", "A");
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             if (input.value) {
-                socket.emit('chat message', input.value);
+                const item = document.createElement('li');
+                item.textContent = `User: ${input.value}`;
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+
+                socket.emit('chat message', input.value, "A");
                 input.value = '';
             }
+
         });
 
         socket.on('chat message', function (msg) {
             console.log(msg);
-            var item = document.createElement('li');
-            item.textContent = msg;
+            const item = document.createElement('li');
+            item.style.backgroundColor = "black";
+            item.style.color = "white";
+            item.textContent = `Admin: ${msg}`;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });

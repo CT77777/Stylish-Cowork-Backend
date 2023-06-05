@@ -8,7 +8,7 @@ import {
 
 const router = Router();
 
-router.route("/chatroom/history").get([authenticate, getChatHistories]);
+router.route("/chatroom/history/test").get([authenticate, getChatHistories]);
 
 router
   .route("/admin/chat_rooms")

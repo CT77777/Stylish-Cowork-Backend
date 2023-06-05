@@ -19,7 +19,7 @@ function instanceOfSetHeader(object: any): object is ResultSetHeader {
 export async function createUser(
   email: string,
   name: string,
-  picture: string = ""
+  picture: string = "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
 ) {
   const results = await pool.query(
     `

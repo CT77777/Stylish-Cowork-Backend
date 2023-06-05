@@ -1,10 +1,17 @@
 import { Router } from "express";
 import {
   getChat,
-  testChatdata
+  testChatdata,
+  latestChats,
+  adminGetChat
 } from "../controllers/chatMessage.js";
+import authenticate from "../middleware/authenticate.js";
+import authorization from "../middleware/authorization.js";
 const router = Router();
 
-router.route("/1.0/chatroom/history").get(getChat);
-router.route("/1.0/chatroom/history2").get(testChatdata);
+router.route("/chatroom/history").get(getChat);
+router.route("/admin/chatroom/history").get([authenticate, authorization("admin"), adminGetChat]);
+router
+  .route("/admin/chatroom")
+  .get([authenticate, authorization("admin"), latestChats]);
 export default router;

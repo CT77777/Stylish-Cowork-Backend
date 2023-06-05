@@ -1056,8 +1056,7 @@ or
 - **Success Response Example:**
 
 ```
-{
-  "data": [
+ [
     {
       "message": "想問褲子什麼時候會有貨",
       "sender_id": 30,
@@ -1081,7 +1080,6 @@ or
       "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     }
   ]
-}
 ```
 
 - **Client Error (No token) Response: 401**

@@ -51,7 +51,7 @@ export async function isUserAdmin(userId: number) {
     if (!userRole[0][0]) {
       return false;
     }
-    const userRoleId : number = userRole[0][0].user_id
+    const userRoleId : number = userRole[0][0].role_id;
     if (userRoleId === 3 ) { //admin id is set to 3
       return true;
     } 

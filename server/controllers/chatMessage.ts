@@ -15,23 +15,25 @@ export async function getChat(req: Request, res: Response) {
     const decoded = await verifyJWT(token);
     const userId : number = decoded.userId;
     let chatroomId : number = userId;
-    //console.log(userId);
     const isAdmin = await isUserAdmin(userId);
-    if (isAdmin) {
-      //chatroomId = parseInt(req.get("user_id")as string);
-      chatroomId = parseInt(req.headers.user_id as string);
-      console.log("req.headers.user_id", req.headers.user_id);
+    if (!isAdmin) {
+      if (parseInt(req.params.chatroomId) !== userId) {
+        res.status(403).json({Error: "Access Denied"});
+        return;
+      } 
+    } else {
+      chatroomId = parseInt(req.params.chatroomId);
     }
-    const messages : object = await getChatHistory(chatroomId);
+    const data : object = await getChatHistory(chatroomId);
     //console.log("controllers", messages);
-    res.json(messages);
+    res.json({data});
     // return data
   } catch (err) {
     console.error(err);
     if (err instanceof Error) {
       res.status(500).json({ errors: err.message });
       return;
-    }
+    } 
     return res.status(500).json({ errors: "get chat failed" });
   }
 }
@@ -43,7 +45,7 @@ export async function adminGetChat(req: Request, res: Response) {
     //console.log(userId);
     const messages : object = await getChatHistory(userId);
     //console.log("controllers", messages);
-    res.json(messages);
+    res.json({messages});
     // return data
   } catch (err) {
     console.error(err);
@@ -101,7 +103,8 @@ export async function latestChats(req: Request, res: Response) {
       }
     }
     console.log("最新聊天室列表", latestChatsroomIds);
-    res.json(latestChatsroomMessage);
+    const data = latestChatsroomMessage;
+    res.json({data});
   } catch (err) {
     console.error(err);
     if (err instanceof Error) {

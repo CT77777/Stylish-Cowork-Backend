@@ -48,10 +48,13 @@ export async function isUserAdmin(userId: number) {
       `SELECT role_id FROM user_role WHERE user_id = ?;`,
       [userId]
     );
-    const userRoleId : number = userRole[0][0].role_id
+    if (!userRole[0][0]) {
+      return false;
+    }
+    const userRoleId : number = userRole[0][0].user_id
     if (userRoleId === 3 ) { //admin id is set to 3
       return true;
-    }
+    } 
   } catch (err) {
     console.error(err);
     return false;

@@ -15,10 +15,12 @@ export async function getChat(req: Request, res: Response) {
     const decoded = await verifyJWT(token);
     const userId : number = decoded.userId;
     let chatroomId : number = userId;
-    console.log(userId);
+    //console.log(userId);
     const isAdmin = await isUserAdmin(userId);
     if (isAdmin) {
+      //chatroomId = parseInt(req.get("user_id")as string);
       chatroomId = parseInt(req.headers.user_id as string);
+      console.log("req.headers.user_id", req.headers.user_id);
     }
     const messages : object = await getChatHistory(chatroomId);
     //console.log("controllers", messages);
@@ -88,11 +90,17 @@ export async function latestChats(req: Request, res: Response) {
     let offset: number = 1;
     for (offset = 0; latestChatsroomIds.length < 10; offset++) {
       const [chatrooms] : Room[] = await getLatestChat(1, offset);
+      if (!chatrooms) {
+        break;
+      }
       if (!latestChatsroomIds.includes(chatrooms.chat_room_id)) {
         latestChatsroomIds.push(chatrooms.chat_room_id);
         latestChatsroomMessage.push(chatrooms);
-      } 
+      } else {
+        console.log("chat Room ID重複", chatrooms.chat_room_id);
+      }
     }
+    console.log("最新聊天室列表", latestChatsroomIds);
     res.json(latestChatsroomMessage);
   } catch (err) {
     console.error(err);

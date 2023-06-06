@@ -23,7 +23,7 @@ export const chatHistorySchema = z.object({
 export async function getChatHistory(chatroomId: number) {
   const results = await pool.query(
     `SELECT cm.message, cm.sender_id, cm.time_stamp, u.name, u.picture
-    FROM chat_messages cm JOIN users u ON cm.sender_id = u.id
+    FROM chat_messages cm JOIN users u ON cm.chat_room_id = u.id
     WHERE chat_room_id = ?;`,
     [chatroomId]
   );

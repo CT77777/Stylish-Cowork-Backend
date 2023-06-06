@@ -1108,7 +1108,7 @@ or
 | Authorization | String | Access token preceding `Bearer `. For example: `Bearer x48aDD534da8ADSD1XC4SD5S`. |
 
 - **Request Example:**
-  `https://[HOST_NAME]/api/[API_VERSION]/admin/chat_rooms`
+  `https://[HOST_NAME]/api/[API_VERSION]/admin/chatroom`
 
 - **Success Response: 200**
 

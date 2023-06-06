@@ -1056,28 +1056,30 @@ or
 - **Success Response Example:**
 
 ```
-{
-  "data": [
+ [
     {
-      "message": "Hello!",
-      "sender_id": 13,
-      "time_stamp": "2023-05-31 22:09:59",
-      "chat_room_id": 13
+      "message": "想問褲子什麼時候會有貨",
+      "sender_id": 30,
+      "time_stamp": 20230604012231,
+      "name": "Dan",
+      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     },
     {
-      "message": "Hi!",
-      "sender_id": 0,
-      "time_stamp": "2023-05-31 22:10:30",
-      "chat_room_id": 13
+      "message": "下個月會進貨",
+      "sender_id": 24,
+      "time_stamp": 20230604012610,
+      "name": "admin",
+      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     },
     {
       "message": "What can I help you?",
       "sender_id": 0,
       "time_stamp": "2023-05-31 22:10:31",
       "chat_room_id": 13
+      "name": "Beth",
+      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     }
   ]
-}
 ```
 
 - **Client Error (No token) Response: 401**
@@ -1125,26 +1127,24 @@ or
 - **Success Response Example:**
 
 ```
-{
-  "data": [
+ [
     {
-      "message": "Hello!",
-      "sender_id": 13,
-      "time_stamp": "2023-05-31 22:09:59",
-      "chat_room_id": 13,
-      "user_name": "Janet",
-      "user_picture": "https://cdn-icons-png.flaticon.com/128/616/616430.png"
+      "message": "Hi 我是Ken",
+      "time_stamp": 20230605143559,
+      "sender_id": 36,
+      "chat_room_id": 36,
+      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+      "name": "Ken"
     },
     {
-      "message": "Check opening time",
-      "sender_id": 11,
-      "time_stamp": "2023-06-02 23:09:59",
-      "chat_room_id": 11,
-      "user_name": "Vicky",
-      "user_picture": "https://cdn-icons-png.flaticon.com/128/2171/2171991.png"
+      "message": "下個月會進貨",
+      "time_stamp": 20230604012610,
+      "sender_id": 24,
+      "chat_room_id": 30,
+      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+      "name": "admin"
     }
-  ]
-}
+]
 ```
 
 - **Client Error (No token) Response: 401**

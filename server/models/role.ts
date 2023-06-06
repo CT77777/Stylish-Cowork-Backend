@@ -1,5 +1,6 @@
 import z from "zod";
 import pool from "./databasePool.js";
+import { FieldPacket, RowDataPacket } from "mysql2";
 
 /*
 roles
@@ -33,6 +34,24 @@ export async function isUserHasRole(userId: number, roleName: string) {
       })
       .parse(rows[0]);
     return result.count > 0;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+interface role {
+  role_id: number;
+}
+export async function isUserAdmin(userId: number) {
+  try {
+    const userRole : [RowDataPacket[], FieldPacket[]] = await pool.query(
+      `SELECT role_id FROM user_role WHERE user_id = ?;`,
+      [userId]
+    );
+    const userRoleId : number = userRole[0][0].role_id
+    if (userRoleId === 3 ) { //admin id is set to 3
+      return true;
+    }
   } catch (err) {
     console.error(err);
     return false;

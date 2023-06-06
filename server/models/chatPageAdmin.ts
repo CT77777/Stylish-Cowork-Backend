@@ -14,11 +14,11 @@ export const LatestchatSchema = z.object({
 export async function getLatestChat(limit: number = 1, offset: number) {
   const updatedChatRoom = await pool.query(
     `SELECT cm.message, cm.time_stamp, cm.sender_id, cm.chat_room_id, u.picture, u.name 
-    FROM chat_messages cm JOIN users u ON cm.sender_id = u.id 
-    ORDER BY cm.time_stamp DESC LIMIT ? OFFSET ?;`,
+    FROM chat_messages cm JOIN users u ON cm.chat_room_id = u.id 
+    ORDER BY cm.id DESC LIMIT ? OFFSET ?;`,
     [limit, offset]
   );
-  console.log("chatrooms", updatedChatRoom[0]);
+  //console.log("chatrooms", updatedChatRoom[0]);
   const updatedChatRoomData = z.array(LatestchatSchema).parse(updatedChatRoom[0]);
   return updatedChatRoomData;
 }

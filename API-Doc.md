@@ -1058,28 +1058,20 @@ or
 ```
  [
     {
-      "message": "想問褲子什麼時候會有貨",
-      "sender_id": 30,
-      "time_stamp": 20230604012231,
-      "name": "Dan",
-      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
+        "message": "想問褲子什麼時候會有貨",
+        "sender_id": 30,
+        "time_stamp": 20230604012231,
+        "name": "Dan",
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     },
     {
-      "message": "下個月會進貨",
-      "sender_id": 24,
-      "time_stamp": 20230604012610,
-      "name": "admin",
-      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
-    },
-    {
-      "message": "What can I help you?",
-      "sender_id": 0,
-      "time_stamp": "2023-05-31 22:10:31",
-      "chat_room_id": 13
-      "name": "Beth",
-      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
+        "message": "下個月會進貨",
+        "sender_id": 24,
+        "time_stamp": 20230604012610,
+        "name": "admin",
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     }
-  ]
+]
 ```
 
 - **Client Error (No token) Response: 401**
@@ -1104,7 +1096,7 @@ or
 
 ### Admin Chat Rooms API
 
-- **End Point:** `/admin/chat_rooms`
+- **End Point:** `/admin/chatroom`
 
 - **Method:** `GET`
 
@@ -1116,7 +1108,7 @@ or
 | Authorization | String | Access token preceding `Bearer `. For example: `Bearer x48aDD534da8ADSD1XC4SD5S`. |
 
 - **Request Example:**
-  `https://[HOST_NAME]/api/[API_VERSION]/admin/chat_rooms`
+  `https://[HOST_NAME]/api/[API_VERSION]/admin/chatroom`
 
 - **Success Response: 200**
 
@@ -1129,20 +1121,84 @@ or
 ```
  [
     {
-      "message": "Hi 我是Ken",
-      "time_stamp": 20230605143559,
-      "sender_id": 36,
-      "chat_room_id": 36,
-      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
-      "name": "Ken"
+        "message": "Hi 我是Ken",
+        "time_stamp": 20230605143559,
+        "sender_id": 36,
+        "chat_room_id": 36,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Ken"
     },
     {
-      "message": "下個月會進貨",
-      "time_stamp": 20230604012610,
-      "sender_id": 24,
-      "chat_room_id": 30,
-      "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
-      "name": "admin"
+        "message": "下個月會進貨",
+        "time_stamp": 20230604012610,
+        "sender_id": 24,
+        "chat_room_id": 30,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "admin"
+    },
+    {
+        "message": "do you ship globally?",
+        "time_stamp": 20230604012438,
+        "sender_id": 35,
+        "chat_room_id": 35,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Jean"
+    },
+    {
+        "message": "how can i help you",
+        "time_stamp": 20230604012415,
+        "sender_id": 24,
+        "chat_room_id": 34,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "admin"
+    },
+    {
+        "message": "is there purple for the skirt",
+        "time_stamp": 20230604012353,
+        "sender_id": 33,
+        "chat_room_id": 33,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Heather"
+    },
+    {
+        "message": "like to ask",
+        "time_stamp": 20230604012330,
+        "sender_id": 32,
+        "chat_room_id": 32,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Garth"
+    },
+    {
+        "message": "有什麼幫助查詢",
+        "time_stamp": 20230604012314,
+        "sender_id": 24,
+        "chat_room_id": 31,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "admin"
+    },
+    {
+        "message": "妳好！",
+        "time_stamp": 20230604012115,
+        "sender_id": 29,
+        "chat_room_id": 29,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Ethan"
+    },
+    {
+        "message": "什麼可以為您服務",
+        "time_stamp": 20230604012051,
+        "sender_id": 24,
+        "chat_room_id": 28,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "admin"
+    },
+    {
+        "message": "想問物流問題",
+        "time_stamp": 20230604012033,
+        "sender_id": 27,
+        "chat_room_id": 27,
+        "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
+        "name": "Beth"
     }
 ]
 ```

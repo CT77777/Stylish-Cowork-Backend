@@ -12,9 +12,12 @@ import authorization from "./middleware/authorization.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import { errorHandler } from "./utils/errorHandler.js";
 import chatBoxTestRouter from "./routes/chatBoxTest.js";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 app.use(cookieParser());
 

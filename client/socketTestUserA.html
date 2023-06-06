@@ -68,13 +68,15 @@
     </form>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const socket = io("wss://ctceth.com:8080"); // need to be revised to ctceth.com before pushing to ec2
+        const socket = io("wss://localhost:8080"); // need to be revised to ctceth.com before pushing to ec2
 
         const messages = document.getElementById('messages');
         const form = document.getElementById('form');
         const input = document.getElementById('input');
 
-        socket.emit("join room", "A");
+        // const sender_ID= Math.floor(Math.random() * 100 + 1);
+        const sender_ID = 24;
+        socket.emit("join room", sender_ID);
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -84,21 +86,37 @@
                 messages.appendChild(item);
                 window.scrollTo(0, document.body.scrollHeight);
 
-                socket.emit('chat message', input.value, "A");
+                const message = input.value;
+                const time_stamp = Date.now();
+                const sender_id = sender_ID;
+                const chat_room_id = sender_ID;
+
+                const messageInfo = {
+                    message: message,
+                    sender_id: sender_id,
+                    time_stamp: time_stamp,
+                    chat_room_id: chat_room_id
+                };
+
+                socket.emit('chat message', messageInfo, chat_room_id);
                 input.value = '';
             }
-
         });
 
-        socket.on('chat message', function (msg) {
-            console.log(msg);
+        socket.on('chat message', (messageInfo) => {
+            console.log(messageInfo);
+            const message = messageInfo.message;
             const item = document.createElement('li');
             item.style.backgroundColor = "black";
             item.style.color = "white";
-            item.textContent = `Admin: ${msg}`;
+            item.textContent = `Admin: ${message}`;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
+
+        socket.on("admin status", (message) => {
+            alert(message);
+        })
     </script>
 </body>
 

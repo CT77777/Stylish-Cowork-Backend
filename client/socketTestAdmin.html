@@ -68,8 +68,8 @@
     </form>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const socket = io("wss://ctceth.com:8080");
-        // const socket = io("wss://localhost:8080");
+        // const socket = io("wss://ctceth.com:8080");
+        const socket = io("wss://localhost:8080");
 
         const messages = document.getElementById('messages');
         const form = document.getElementById('form');
@@ -78,7 +78,7 @@
         // socket.emit("join room", 26);
         // socket.emit("join room", 28);
 
-        const sender_ID = 24; // admin 
+        const sender_ID = 25; // admin 
         socket.emit("admin connect", sender_ID);
 
         form.addEventListener('submit', function (e) {
@@ -102,7 +102,7 @@
                 };
 
                 socket.emit('chat message', messageInfo, 28);
-                socket.emit('chat message', messageInfo, 26);
+                socket.emit('chat message', messageInfo, 27);
                 input.value = '';
             }
         });

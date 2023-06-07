@@ -27,6 +27,7 @@ app.use(cors());
 
 const adminSocket: Record<number, Socket> = {};
 const rooms: string[] = [];
+const userSocketRoomsMap: Record<string, string> = {};
 
 io.on("connection", (socket) => {
   console.log(`New connection connected... socket id is {${socket.id}}`);
@@ -36,15 +37,14 @@ io.on("connection", (socket) => {
       adminSocket[sender_id] = socket;
       console.log(`Admin socket id {${socket.id}} connected...`);
       io.emit("admin status", `Admin No.${sender_id} online now!`); // broadcast admin online status to every user
-      if (rooms.length !== 0) {
-        rooms.forEach((room) => {
-          socket.join(room.toString());
+
+      if (Object.keys(userSocketRoomsMap).length !== 0) {
+        for (let key in userSocketRoomsMap) {
+          socket.join(userSocketRoomsMap[key]);
           console.log(
-            `Admin socket id {${
-              socket.id
-            }} joined the room {${room.toString()}}`
+            `Admin socket id {${socket.id}} joined the room {${userSocketRoomsMap[key]}}`
           );
-        });
+        }
       }
     } catch (error: any) {
       const errorMessage = error.message;
@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
     try {
       socket.join(room.toString());
       rooms.push(room.toString());
+      userSocketRoomsMap[socket.id] = room.toString();
       console.log(
         `socket id {${socket.id}} joined the room {${room.toString()}}`
       );
@@ -109,6 +110,11 @@ io.on("connection", (socket) => {
           // broadcast admin offline status to every user
         }
       }
+
+      if (userSocketRoomsMap[socket.id] !== undefined) {
+        delete userSocketRoomsMap[socket.id];
+      }
+
       console.log(`one connection disconnected... socket id is ${socket.id}`);
     } catch (error: any) {
       const errorMessage = error.message;

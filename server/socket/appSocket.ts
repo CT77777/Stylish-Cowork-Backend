@@ -29,55 +29,88 @@ const adminSocket: Record<number, Socket> = {};
 const rooms: string[] = [];
 
 io.on("connection", (socket) => {
-  console.log(`New connection connected, socket id is ${socket.id}`);
+  console.log(`New connection connected... socket id is {${socket.id}}`);
 
   socket.on("admin connect", (sender_id) => {
-    adminSocket[sender_id] = socket;
-    io.emit("admin status", `Admin No.${sender_id} online now!`);
-    if (rooms.length !== 0) {
-      rooms.forEach((room) => {
-        socket.join(room.toString());
-      });
+    try {
+      adminSocket[sender_id] = socket;
+      console.log(`Admin socket id {${socket.id}} connected...`);
+      io.emit("admin status", `Admin No.${sender_id} online now!`); // broadcast admin online status to every user
+      if (rooms.length !== 0) {
+        rooms.forEach((room) => {
+          socket.join(room.toString());
+          console.log(
+            `Admin socket id {${
+              socket.id
+            }} joined the room {${room.toString()}}`
+          );
+        });
+      }
+    } catch (error: any) {
+      const errorMessage = error.message;
+      console.log(errorMessage);
     }
   });
 
   socket.on("join room", (room) => {
-    socket.join(room.toString());
-    rooms.push(room.toString());
+    try {
+      socket.join(room.toString());
+      rooms.push(room.toString());
+      console.log(
+        `socket id {${socket.id}} joined the room {${room.toString()}}`
+      );
 
-    if (Object.keys(adminSocket).length !== 0) {
-      for (let key in adminSocket) {
-        adminSocket[key].join(room.toString());
+      if (Object.keys(adminSocket).length !== 0) {
+        for (let key in adminSocket) {
+          adminSocket[key].join(room.toString());
+          console.log(
+            `Admin socket id {${
+              adminSocket[key].id
+            }} joined the room {${room.toString()}}`
+          );
+        }
       }
-    }
+    } catch (error: any) {}
   });
 
   socket.on("chat message", async (messageInfo, chat_room_id) => {
-    // console.log("messageInfo: ", messageInfo);
-
-    // io.emit("chat message", `got your message {${msg}}!`); // This will emit the event to all connected sockets
-    // socket.broadcast.emit("chat message", msg); // send a message to every connected client except for the one triggering the event
-
     const message = messageInfo.message;
     const sender_id = messageInfo.sender_id;
     const time_stamp = messageInfo.time_stamp;
     const chatRoomId = chat_room_id.toString();
 
-    await storeMessage(message, sender_id, time_stamp, chat_room_id);
-    socket.to(chatRoomId).emit("chat message", messageInfo); // send a message to specified room, room name must be the same type
+    try {
+      const messageInfoDetails = await storeMessage(
+        message,
+        sender_id,
+        time_stamp,
+        chat_room_id
+      );
+      console.log("Message: ", messageInfoDetails);
+
+      socket.to(chatRoomId).emit("chat message", messageInfo); // send a message to specified room, room name must be the same type
+    } catch (error: any) {
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    }
   });
 
   socket.on("disconnect", () => {
-    for (let key in adminSocket) {
-      if (adminSocket[key] === socket) {
-        io.emit(
-          "admin status",
-          `Admin No.${key} offline. Please leave your messages!`
-        );
+    try {
+      for (let key in adminSocket) {
+        if (adminSocket[key] === socket) {
+          io.emit(
+            "admin status",
+            `Admin No.${key} offline. Please leave your messages!`
+          );
+          // broadcast admin offline status to every user
+        }
       }
+      console.log(`one connection disconnected... socket id is ${socket.id}`);
+    } catch (error: any) {
+      const errorMessage = error.message;
+      console.log(errorMessage);
     }
-    console.log("one connection disconnected");
-    // socket.broadcast.emit("chat message", "Someone is offline......");
   });
 });
 

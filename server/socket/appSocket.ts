@@ -70,7 +70,10 @@ io.on("connection", (socket) => {
           );
         }
       }
-    } catch (error: any) {}
+    } catch (error: any) {
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    }
   });
 
   socket.on("chat message", async (messageInfo, chat_room_id) => {

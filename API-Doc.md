@@ -1027,7 +1027,7 @@ or
 
 ### Chat Room Histories API
 
-- **End Point:** `/chatroom/history`
+- **End Point:** `/chatroom/history/:chatroomId`
 
 - **Method:** `GET`
 
@@ -1038,14 +1038,12 @@ or
 | Content-Type  | String |                          Only accept `application/json`.                          |
 | Authorization | String | Access token preceding `Bearer `. For example: `Bearer x48aDD534da8ADSD1XC4SD5S`. |
 
-- **Request Body**
+- **URL Parameters**
 
-  |  Field  | Type |                          Description                           |
-  | :-----: | :--: | :------------------------------------------------------------: |
-  | user_id | Int  | If Header token belongs to admin, requires an user_id in body. |
+ https://[HOST_NAME]/api/[API_VERSION]/chatroom/history/:chatroomId
 
 - **Request Example:**
-  `https://[HOST_NAME]/api/[API_VERSION]/chatroom/history`
+  `https://[HOST_NAME]/api/[API_VERSION]/chatroom/history/30`
 
 - **Success Response: 200**
 
@@ -1056,22 +1054,24 @@ or
 - **Success Response Example:**
 
 ```
- [
+ {
+  data: [
     {
         "message": "想問褲子什麼時候會有貨",
         "sender_id": 30,
-        "time_stamp": 20230604012231,
+        "time_stamp": 1686022796342,
         "name": "Dan",
         "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     },
     {
         "message": "下個月會進貨",
         "sender_id": 24,
-        "time_stamp": 20230604012610,
+        "time_stamp": 1686021847760,
         "name": "admin",
         "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png"
     }
-]
+  ]
+}
 ```
 
 - **Client Error (No token) Response: 401**
@@ -1080,11 +1080,11 @@ or
 | :---: | :----: | :------------- |
 | error | String | Error message. |
 
-- **Client Error (Wrong token) Response: 403**
+- **Client Error (User not Admin can only access its own history) Response: 403**
 
 | Field |  Type  | Description    |
 | :---: | :----: | :------------- |
-| error | String | Error message. |
+| error | String | Access Denied. |
 
 - **Server Error Response: 500**
 
@@ -1119,7 +1119,8 @@ or
 - **Success Response Example:**
 
 ```
- [
+{
+  data: [
     {
         "message": "Hi 我是Ken",
         "time_stamp": 20230605143559,
@@ -1200,7 +1201,8 @@ or
         "picture": "https://publicdomainvectors.org/photos/abstract-user-flat-1.png",
         "name": "Beth"
     }
-]
+  ]
+}
 ```
 
 - **Client Error (No token) Response: 401**

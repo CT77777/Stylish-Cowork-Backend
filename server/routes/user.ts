@@ -36,7 +36,28 @@ router.route("/user/signin").post([
     res.status(400).json({ errors: "invalid provider" });
   },
 ]);
-
+/**
+   * @openapi
+   * /api/1.0/user/profile :
+   *  get:
+   *    tags:
+   *    - User
+   *    description: Get user information
+   *    parameters:
+   *     - name: token
+   *       in: header
+   *       description: JWT Token
+   *       require: true
+   *    responses: 
+   *      200:
+   *        description: User info.
+   *      401:
+   *        description: Client Error (No token)
+   *      403:
+   *        description: Client Error (Wrong token)
+   *      500:
+   *        description: Server Error
+*/
 router.route("/user/profile").get([authenticate, getProfile]);
 
 export default router;

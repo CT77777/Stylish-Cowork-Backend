@@ -13,6 +13,8 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import { errorHandler } from "./utils/errorHandler.js";
 import chatBoxTestRouter from "./routes/chatBoxTest.js";
 import cors from "cors";
+import swaggerDocs from "./utils/swagger.js";
+
 
 const app = express();
 const port = 3000;
@@ -52,8 +54,22 @@ app.use(
 app.use("/uploads", express.static("./uploads"));
 app.use("/assets", express.static("./assets"));
 
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     description: Welcome to swagger-jsdoc!
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ */
+app.get('/test', (req, res) => {
+  res.send('TESTING API DOCS');
+});
+
 app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`STYLiSH listening on port ${port}`);
+  swaggerDocs(app, port);
 });

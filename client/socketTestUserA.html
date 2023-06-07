@@ -68,14 +68,15 @@
     </form>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const socket = io("wss://localhost:8080"); // need to be revised to ctceth.com before pushing to ec2
+        const socket = io("wss://ctceth.com:8080");
+        // const socket = io("wss://localhost:8080");
 
         const messages = document.getElementById('messages');
         const form = document.getElementById('form');
         const input = document.getElementById('input');
 
         // const sender_ID= Math.floor(Math.random() * 100 + 1);
-        const sender_ID = 24;
+        const sender_ID = 28; // user
         socket.emit("join room", sender_ID);
 
         form.addEventListener('submit', function (e) {

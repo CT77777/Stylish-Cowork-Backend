@@ -31,7 +31,7 @@ export async function storeMessage(
   );
   const id = response[0].insertId;
   const messageInfo = await getMessage(id);
-  console.log("MessageInfo: ", messageInfo);
+  return messageInfo;
 }
 
 async function getMessage(id: number) {

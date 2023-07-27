@@ -12,9 +12,42 @@ import { uploadToBuffer } from "../middleware/multer.js";
 import * as validator from "../middleware/validator.js";
 
 const router = Router();
-
+/**
+   * @openapi
+   * /api/1.0/products:
+   *  get:
+   *    tags:
+   *    - Products
+   *    description: get all products
+   *    responses: 
+   *      200:
+   *        description: all
+*/
 router.route("/products").get(getProducts);
-
+/**
+   * @openapi
+   * /api/1.0/products/search:
+   *  get:
+   *    tags:
+   *    - Products
+   *    description: Product object of search keyword
+   *    parameters:
+   *    - in: query
+   *      name: keyword
+   *      schema:
+   *        type: string
+   *      required: true
+   *    - in: query
+   *      name: paging
+   *      schema:
+   *        type: integer
+   *      description: Paging for request next page.
+   *    responses: 
+   *      200:
+   *        description: Array of Product Object.
+   *      400:
+   *        description: Error message.
+*/
 router
   .route("/products/search")
   .get(
@@ -23,11 +56,53 @@ router
     validator.handleResult,
     searchProducts
   );
-
+/**
+   * @openapi
+   * /api/1.0/products/details:
+   *  get:
+   *    tags:
+   *    - Products
+   *    description: Product object of specific products
+   *    parameters:
+   *    - in: query
+   *      name: Product ID
+   *      schema:
+   *        type: integer
+   *      required: true
+   *    responses: 
+   *      200:
+   *        description: Single Product Information.
+   *      400:
+   *        description: Error message.
+   *      500: 
+   *        description: Server Error.
+*/
 router
   .route("/products/details")
   .get(query("id").not().isEmpty().trim(), validator.handleResult, getProduct);
-
+/**
+   * @openapi
+   * /api/1.0/products/{category}:
+   *  get:
+   *    tags:
+   *    - Products
+   *    description: Product object of specific products
+   *    parameters:
+   *    - in: path
+   *      name: category
+   *      require: true
+   *    - in: query
+   *      name: paging
+   *      schema:
+   *        type: integer
+   *    responses: 
+   *      200:
+   *        description: Single Product Information.
+   *      400:
+   *        description: Error message.
+   *      500: 
+   *        description: Server Error.
+*/
 router
   .route("/products/:category")
   .get(

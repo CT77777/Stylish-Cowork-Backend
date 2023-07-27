@@ -5,14 +5,21 @@ import userRouter from "./routes/user.js";
 import campaignRouter from "./routes/campaign.js";
 import orderRouter from "./routes/order.js";
 import reportRouter from "./routes/report.js";
+import chatRouter from "./routes/chatMessage.js";
 import branch from "./middleware/branch.js";
 import authenticate from "./middleware/authenticate.js";
 import authorization from "./middleware/authorization.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import { errorHandler } from "./utils/errorHandler.js";
+import chatBoxTestRouter from "./routes/chatBoxTest.js";
+import cors from "cors";
+import swaggerDocs from "./utils/swagger.js";
+
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 app.use(cookieParser());
 
@@ -32,6 +39,8 @@ app.use("/api/1.0", rateLimiter, [
   campaignRouter,
   orderRouter,
   reportRouter,
+  chatRouter,
+  chatBoxTestRouter,
 ]);
 
 app.use(
@@ -45,8 +54,22 @@ app.use(
 app.use("/uploads", express.static("./uploads"));
 app.use("/assets", express.static("./assets"));
 
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     description: Welcome to swagger-jsdoc!
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ */
+app.get('/test', (req, res) => {
+  res.send('TESTING API DOCS');
+});
+
 app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`STYLiSH listening on port ${port}`);
+  swaggerDocs(app, port);
 });

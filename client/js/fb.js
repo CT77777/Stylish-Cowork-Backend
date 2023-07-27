@@ -10,14 +10,14 @@ const fb = {
         if (d.getElementById(id)) return;
         js = d.createElement(s);
         js.id = id;
-        js.src = 'https://connect.facebook.net/zh_TW/sdk.js';
+        js.src = "https://connect.facebook.net/zh_TW/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-      })(document, 'script', 'facebook-jssdk');
+      })(document, "script", "facebook-jssdk");
     });
   },
   init() {
     window.FB.init({
-      appId: "211194718133330",
+      appId: "2710001569130006",
       autoLogAppEvents: true,
       xfbml: true,
       version: "v16.0",
@@ -36,7 +36,7 @@ const fb = {
         (response) => {
           resolve(response);
         },
-        { scope: 'public_profile,email' }
+        { scope: "public_profile,email" }
       );
     });
   },

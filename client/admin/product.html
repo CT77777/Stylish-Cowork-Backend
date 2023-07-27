@@ -21,9 +21,9 @@
   }
 
   .preview>ol>li {
-      display: flex;
-      align-items: center;
-    }
+    display: flex;
+    align-items: center;
+  }
 
   .preview>ol>li>p {
     margin: 0;
@@ -172,7 +172,7 @@
 
         const formData = new FormData(e.target);
 
-        const response = await fetch('/api/product', {
+        const response = await fetch('/api/1.0/product', {
           method: 'POST',
           cache: 'no-cache',
           credentials: 'same-origin',

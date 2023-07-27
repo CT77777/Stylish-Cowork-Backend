@@ -7,7 +7,20 @@ import {
 import { uploadToDisk } from "../middleware/multer.js";
 
 const router = Router();
-
+/**
+   * @openapi
+   * /api/1.0/marketing/campaigns:
+   *  get:
+   *    tags:
+   *    - Marketing
+   *    description: get marketing campaigns
+   *    responses: 
+   *      200:
+   *        description: Array of Campaign Object.
+   *      500:
+   *        description: Sever Error. Error message.
+   *      
+*/
 router.route("/marketing/campaigns").get(getCampaigns);
 
 router

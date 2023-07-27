@@ -101,7 +101,7 @@
     crossorigin="anonymous"></script>
 
   <script>
-    fetch("/api/products")
+    fetch("/api/1.0/products")
       .then(response => response.json())
       .then(result => {
         const productSelect = document.getElementById("productSelect");
@@ -123,7 +123,7 @@
 
         const formData = new FormData(e.target);
 
-        const response = await fetch('/api/marketing/campaigns', {
+        const response = await fetch('/api/1.0/marketing/campaigns', {
           method: 'POST',
           cache: 'no-cache',
           credentials: 'same-origin',

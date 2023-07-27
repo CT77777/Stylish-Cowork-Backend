@@ -10,7 +10,7 @@ const LOGIN_STATUS = {
 function facebookLogin() {
   return new Promise((resolve, reject) => {
     FB.init({
-      appId: "211194718133330",
+      appId: "2710001569130006",
       autoLogAppEvents: true,
       xfbml: true,
       version: "v16.0",
@@ -28,7 +28,7 @@ function facebookLogin() {
 function facebookLogout() {
   return new Promise((resolve, reject) => {
     FB.init({
-      appId: "211194718133330",
+      appId: "2710001569130006",
       autoLogAppEvents: true,
       xfbml: true,
       version: "v16.0",

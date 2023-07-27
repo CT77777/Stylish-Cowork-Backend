@@ -4,6 +4,7 @@ import axios from "axios";
 import * as userModel from "../models/user.js";
 import * as userProviderModel from "../models/userProvider.js";
 import signJWT, { EXPIRE_TIME } from "../utils/signJWT.js";
+import { isUserAdmin } from "../models/role.js";
 
 const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
@@ -18,7 +19,11 @@ const COOKIE_OPTIONS = {
 export async function signUp(req: Request, res: Response) {
   try {
     const { name, email, password } = req.body;
-    const userId = await userModel.createUser(email, name);
+    const userId = await userModel.createUser(
+      email,
+      name,
+      "https://cdn-icons-png.flaticon.com/128/6988/6988878.png"
+    );
     await userProviderModel.createNativeProvider(userId, password);
     const token = await signJWT(userId);
     res
@@ -33,7 +38,7 @@ export async function signUp(req: Request, res: Response) {
             provider: userProviderModel.PROVIDER.NATIVE,
             name,
             email,
-            picture: "",
+            picture: "https://cdn-icons-png.flaticon.com/128/6988/6988878.png",
           },
         },
       });
@@ -105,7 +110,7 @@ const ProfileSchema = z.object({
 
 async function getFbProfileData(userToken: string) {
   const response = await axios.get(
-    `https://graph.facebook.com/v16.0/me?fields=id,name,email,picture&access_token=${userToken}`
+    `https://graph.facebook.com/v16.0/me?fields=id,name,email,picture.width(360).height(360)&access_token=${userToken}`
   );
   const profile = ProfileSchema.parse(response.data);
   return profile;
@@ -122,9 +127,14 @@ export async function fbLogin(req: Request, res: Response) {
     const user = await userModel.findUser(profile.email);
 
     if (!user) {
-      const userId = await userModel.createUser(profile.email, profile.name);
+      const userId = await userModel.createUser(
+        profile.email,
+        profile.name,
+        profile.picture.data.url
+      );
       await userProviderModel.createFbProvider(userId, profile.id);
       const token = await signJWT(userId);
+      const isAdmin = await isUserAdmin(userId);
       res
         .cookie("jwtToken", token, COOKIE_OPTIONS)
         .status(200)
@@ -136,8 +146,9 @@ export async function fbLogin(req: Request, res: Response) {
               id: userId,
               name: profile.name,
               email: profile.email,
-              picture: "",
+              picture: profile.picture.data.url,
               provider: userProviderModel.PROVIDER.FACEBOOK,
+              isAdmin: isAdmin,
             },
           },
         });
@@ -151,6 +162,7 @@ export async function fbLogin(req: Request, res: Response) {
       throw new Error("user id and provider token not match");
     }
     const token = await signJWT(user.id);
+    const isAdmin = await isUserAdmin(user.id);
     res
       .cookie("jwtToken", token, COOKIE_OPTIONS)
       .status(200)
@@ -161,6 +173,7 @@ export async function fbLogin(req: Request, res: Response) {
           user: {
             ...user,
             provider: userProviderModel.PROVIDER.FACEBOOK,
+            isAdmin: isAdmin,
           },
         },
       });

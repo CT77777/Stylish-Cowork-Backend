@@ -16,11 +16,7 @@ function instanceOfSetHeader(object: any): object is ResultSetHeader {
   return "insertId" in object;
 }
 
-export async function createUser(
-  email: string,
-  name: string,
-  picture: string = ""
-) {
+export async function createUser(email: string, name: string, picture: string) {
   const results = await pool.query(
     `
     INSERT INTO users (email, name, picture)

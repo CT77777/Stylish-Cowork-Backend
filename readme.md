@@ -1,23 +1,30 @@
-# Stylish Web
+# Chat Room Feature in STYLiSH
 
-## Deployment
+## Table of Contents
 
-1. Start MySQL server
-2. Import database: `mysql -u <user_name> -p <db_name> < stylish_backend.sql`
-3. Create config: `.env` for back-end (You can copy the schema from template: `.env-template`)
-4. Install server dependencies `npm install`
-5. Create admin role and user: `npm run db:seeds initAdmin.js`
-6. Start a redis server in `localhost` at port `6379`
-7. Start queue (Optional)
-8. Clear Browser localStorage if needed. The same address will use the same space to records localStorage key-value pairs and it may conflict with mine. (Optional)
+- [📹 Demo](#demo)
+- [💻 Tech Stack](#tech-stack)
+- [⚙️ Architecture](#system-architecture)
 
-### Run Develop Server
-```
-npm run dev
-```
+## Demo
 
-### Run Production Sever
-```
-npm run build
-npm run start
-```
+https://github.com/CT77777/Stylish-Cowork-Backend/assets/103264872/dfaf2156-bf28-4b61-83e3-cc6f5f21cc05
+
+## Tech Stack
+
+### Back-End:
+
+![Node](https://img.shields.io/badge/Node-white?logo=nodedotjs)
+![Express](https://img.shields.io/badge/Express-white?logo=express&logoColor=%23000000)
+![TypeScript](https://img.shields.io/badge/TypeScript-white?logo=typescript)
+![MySQL](https://img.shields.io/badge/MySQL-white?logo=mysql)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-white?logo=socketdotio&logoColor=%23010101)
+
+### Cloud Service(AWS):
+
+![EC2](https://img.shields.io/badge/EC2-white?logo=amazonec2)
+![RDS](https://img.shields.io/badge/RDS-white?logo=amazonrds)
+
+## System Architecture
+
+![architecture-chat-box](./client/images/chat-box-architecture.png)

@@ -8,6 +8,8 @@
 
 ## Demo
 
+https://github.com/CT77777/Stylish-Cowork-Backend/assets/103264872/dfaf2156-bf28-4b61-83e3-cc6f5f21cc05
+
 ## Tech Stack
 
 ### Back-End:
